@@ -258,4 +258,60 @@
     </div>
   </section>
 
+  <!-- =====================
+       CONTACT SECTION
+  ===================== -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+
+    <div class="contact-grid">
+
+      <!-- left: heading + message -->
+      <div class="contact-left">
+        <h2>Let's connect &amp;<br><em>build together.</em></h2>
+        <p>
+          I'm currently looking for internship and freelance
+          opportunities. Whether you have a project idea, a
+          question, or just want to say hi — my inbox is open.
+        </p>
+
+        <!-- direct links -->
+        <div class="contact-links">
+          <a href="mailto:yourname@gmail.com" class="contact-item">
+            <span class="ci-label">Email</span>
+            <span class="ci-value">yourname@gmail.com ↗</span>
+          </a>
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-item">
+            <span class="ci-label">LinkedIn</span>
+            <span class="ci-value">linkedin.com/in/yourprofile ↗</span>
+          </a>
+          <a href="https://github.com/yourusername" target="_blank" class="contact-item">
+            <span class="ci-label">GitHub</span>
+            <span class="ci-value">github.com/yourusername ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- right: contact form -->
+      <form class="contact-form" onsubmit="sendMessage(event)">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="send-btn">
+          Send Message
+        </button>
+      </form>
+
+    </div>
+  </section>
+
  
