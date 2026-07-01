@@ -14,3 +14,127 @@
    10. Utility / shared classes
    11. Responsive (mobile)
    ============================================================ */
+
+
+/* ─────────────────────────────────────────────
+   1. VARIABLES
+   Change --gold to any colour to re-theme
+   the whole site instantly.
+───────────────────────────────────────────── */
+:root {
+  /* Colours */
+  --bg:        #0c0c0e;        /* main background */
+  --surface:   #111113;        /* cards / nav background */
+  --surface2:  #18181b;        /* slightly lighter surface */
+  --border:    rgba(255, 255, 255, 0.08);  /* subtle lines */
+  --text:      #f0efe9;        /* main text (almost white) */
+  --text-muted:#8a8884;        /* secondary / grey text */
+  --text-dim:  #4a4846;        /* very faint text */
+  --gold:      #c9a84c;        /* accent colour */
+  --gold-bg:   rgba(201, 168, 76, 0.10);  /* gold with low opacity */
+  --gold-border: rgba(201, 168, 76, 0.30);
+
+  /* Spacing */
+  --pad: clamp(20px, 5vw, 72px); /* responsive side padding */
+
+  /* Border radius */
+  --radius: 10px;
+}
+
+
+/* ─────────────────────────────────────────────
+   2. RESET & BASE
+   Removes browser default margins/padding
+   and sets sensible global defaults.
+───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* smooth jump when clicking nav links */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased; /* crisper text on Mac */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* highlighted text colour when you select/drag */
+::selection {
+  background: var(--gold);
+  color: #0c0c0e;
+}
+
+
+/* ─────────────────────────────────────────────
+   3. LOADER
+   Full-screen overlay that fades out after
+   the page loads. Controlled by script.js.
+───────────────────────────────────────────── */
+#loader {
+  position: fixed;       /* covers the whole screen */
+  inset: 0;              /* shorthand for top/right/bottom/left: 0 */
+  z-index: 9000;         /* sits on top of everything */
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.7s ease, visibility 0.7s;
+}
+
+/* when script.js adds class "done", hide the loader */
+#loader.done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  /* clip-path hides the text, animation reveals it left-to-right */
+  clip-path: inset(0 100% 0 0);
+  animation: revealText 0.9s 0.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revealText {
+  to { clip-path: inset(0 0% 0 0); }
+}
+
+.loader-bar {
+  width: 160px;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* the gold line slides in from left */
+.loader-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-100%);
+  animation: slideBar 0.8s 0.2s ease forwards;
+}
+
+@keyframes slideBar {
+  to { transform: translateX(0); }
+}
