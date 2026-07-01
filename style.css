@@ -636,3 +636,207 @@ nav {
 
 .contact-item:hover .ci-value { color: var(--gold); }
 
+/* right column — form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.field input,
+.field textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 12px 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--gold-border);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.10);
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical; /* user can resize height only */
+}
+
+
+/* ─────────────────────────────────────────────
+   9. FOOTER
+───────────────────────────────────────────── */
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px var(--pad);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.footer-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.footer-copy {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.footer-top {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+
+.footer-top:hover { color: var(--gold); }
+
+
+/* ─────────────────────────────────────────────
+   10. UTILITY / SHARED CLASSES
+───────────────────────────────────────────── */
+
+/* small label that appears above section headings */
+.section-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* the short line beside the label */
+.section-label::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #0c0c0e;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold-border);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* SCROLL REVEAL  — elements start invisible,
+   script.js adds class "visible" to show them */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ─────────────────────────────────────────────
+   11. RESPONSIVE  (screens narrower than 900px)
+───────────────────────────────────────────── */
+@media (max-width: 900px) {
+
+  /* hide nav links on small screens */
+  .nav-links { display: none; }
+
+  /* hero stacks vertically */
+  #hero {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+
+  .hero-sub    { max-width: 100%; }
+  .hero-btns   { justify-content: center; }
+  .hero-card   { width: 100%; max-width: 340px; }
+
+  /* about stacks vertically */
+  .about-grid  { grid-template-columns: 1fr; gap: 48px; }
+
+  /* projects becomes 1 column */
+  .projects-grid { grid-template-columns: 1fr; }
+
+  /* contact stacks vertically */
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+
+  /* footer stacks */
+  footer {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  #hero h1 { font-size: 2.4rem; }
+}
