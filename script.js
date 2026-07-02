@@ -6,3 +6,68 @@
    2. Animate elements into view as you scroll down
    3. Handle the contact form submit button
    ============================================================ */
+
+
+/* ─────────────────────────────────────────────
+   1. LOADER
+   
+   window.addEventListener('load', ...) runs
+   the function AFTER every image, font, and
+   stylesheet on the page has fully loaded.
+   
+   We then wait 1200ms (1.2 seconds) before
+   adding the class "done" to #loader.
+   
+   In style.css, #loader.done sets:
+     opacity: 0  and  visibility: hidden
+   which fades it out smoothly.
+───────────────────────────────────────────── */
+window.addEventListener('load', function () {
+
+  setTimeout(function () {
+    document.getElementById('loader').classList.add('done');
+  }, 1200);
+
+});
+
+
+/* ─────────────────────────────────────────────
+   2. SCROLL REVEAL
+   
+   IntersectionObserver watches a list of elements.
+   When an element enters the screen (is visible),
+   the callback fires and we add class "visible".
+   
+   In style.css:
+     .reveal           → opacity: 0, moved down 18px
+     .reveal.visible   → opacity: 1, back to normal
+   
+   The CSS transition then animates between the two.
+───────────────────────────────────────────── */
+
+// Select every element that has the class "reveal"
+var revealElements = document.querySelectorAll('.reveal');
+
+// Create an observer
+// "entries" is a list of all elements being watched
+// threshold: 0.1 means: fire when 10% of the element is visible
+var observer = new IntersectionObserver(function (entries) {
+
+  entries.forEach(function (entry) {
+
+    // entry.isIntersecting is true when element enters screen
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // stop watching this element — it only needs to animate once
+      observer.unobserve(entry.target);
+    }
+
+  });
+
+}, { threshold: 0.1 });
+
+// Tell the observer to watch each "reveal" element
+revealElements.forEach(function (el) {
+  observer.observe(el);
+});
