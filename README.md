@@ -2,13 +2,15 @@
 
 A simple, responsive personal portfolio website built to showcase my **skills**, **projects**, and a bit about **myself** — built as a Computer Science student learning front-end web development.
 
-🔗 **Live Demo:** _(add your GitHub Pages / Netlify / Vercel link here once deployed)_
+🔗 **Live Demo:**
 
 ---
 
 ## 📸 Preview
 
-_(Add a screenshot of your site here — you can drag & drop an image into this README on GitHub, or use markdown like below)_
+<img width="1920" height="963" alt="image" src="https://github.com/user-attachments/assets/998febca-db5c-4962-9569-ffb80cd19724" />
+<img width="1920" height="963" alt="image" src="https://github.com/user-attachments/assets/f422869e-8b3d-4cc6-a9e1-3cb94190de2f" />
+
 
 ```md
 ![Portfolio Screenshot](new.jpg)
@@ -103,7 +105,7 @@ I'm a Computer Science student building this portfolio to learn and showcase fro
 Feel free to reach out or connect with me!
 
 - GitHub: [@Roussshan](https://github.com/Roussshan)
-- Email: roussshan@gmial.com
+- Email: roussshan@gmail.com
 - LinkedIn: https://www.linkedin.com/in/roushan-kumar-539178381/
 
 ---
