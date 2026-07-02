@@ -71,3 +71,40 @@ var observer = new IntersectionObserver(function (entries) {
 revealElements.forEach(function (el) {
   observer.observe(el);
 });
+
+
+/* ─────────────────────────────────────────────
+   3. CONTACT FORM
+   
+   When the form is submitted, we:
+   a) Prevent the default browser behaviour
+      (which would reload the page)
+   b) Change the button text to "Sent ✓"
+   c) Reset it back after 3.5 seconds
+   
+   To make it actually send an email, replace
+   the inside of this function with a real API
+   call (e.g. EmailJS or Formspree).
+───────────────────────────────────────────── */
+function sendMessage(event) {
+
+  // Stop the page from reloading
+  event.preventDefault();
+
+  var button = document.getElementById('send-btn');
+
+  // Change button to success state
+  button.textContent    = 'Sent ✓';
+  button.style.background = '#4ade80';  /* green */
+  button.style.color      = '#0c0c0e';
+  button.disabled         = true;
+
+  // After 3.5 seconds, reset the button
+  setTimeout(function () {
+    button.textContent    = 'Send Message';
+    button.style.background = '';  /* removes inline style, CSS takes over */
+    button.style.color      = '';
+    button.disabled         = false;
+  }, 3500);
+
+}
