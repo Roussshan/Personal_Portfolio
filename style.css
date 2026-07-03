@@ -208,6 +208,31 @@ nav {
   color: var(--text-muted);
 }
 
+/* wrapper that holds the resume button + status dot together */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Resume button — outlined gold style */
+.nav-resume {
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+  padding: 7px 16px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-resume:hover {
+  background: var(--gold);
+  color: #0c0c0e;  /* dark text on gold background */
+}
+
 /* the pulsing green dot */
 .status-dot {
   width: 6px;
