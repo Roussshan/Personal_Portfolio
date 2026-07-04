@@ -838,12 +838,7 @@ footer {
    means: "apply these styles ONLY when the
    screen is 768px wide or narrower"
 ───────────────────────────────────────────── */
-@media (max-width: 900px) {
 
-  /* hide nav links on small screens */
-  .nav-links { display: none; }
-
-  /* hero stacks vertically */
   #hero {
     flex-direction: column;
     justify-content: center;
