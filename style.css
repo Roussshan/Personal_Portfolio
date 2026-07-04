@@ -839,15 +839,8 @@ footer {
    screen is 768px wide or narrower"
 ───────────────────────────────────────────── */
 
-  #hero {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    padding-top: 100px;
-    padding-bottom: 60px;
-  }
 
-  /* ══════════════════════════════════════
+/* ══════════════════════════════════════
    LARGE LAPTOP / DESKTOP  (≤ 1280px)
    Minor tweaks — everything still fits
 ══════════════════════════════════════ */
@@ -871,8 +864,13 @@ footer {
   /* nav — hide status dot, keep resume button */
   .nav-status { display: none; }
 
-  /* hero — reduce gap between content and card */
-  #hero { gap: 32px; }
+  /* hero — keep side by side but reduce gap and card size */
+  #hero {
+    gap: 28px;
+    padding-top: 80px;
+  }
+
+  .hero-content { max-width: 500px; }
 
   .hero-card { width: 220px; }
 
@@ -893,6 +891,26 @@ footer {
 
 /* ══════════════════════════════════════
    TABLET PORTRAIT  (≤ 768px)
+   One-column layout for most sections
+══════════════════════════════════════ */
+/* ══════════════════════════════════════
+   DESKTOP LOCK  (≥ 769px)
+   Forces hero back to side-by-side on
+   all screens wider than a tablet
+══════════════════════════════════════ */
+@media (min-width: 769px) {
+  #hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .hero-btns   { justify-content: flex-start; }
+  .hero-content { max-width: 580px; }
+}
+
+/* ══════════════════════════════════════
+   TABLET PORTRAIT  (2264 768px)
    One-column layout for most sections
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
