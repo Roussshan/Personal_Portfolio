@@ -983,3 +983,84 @@ footer {
 
 }
 
+
+/* ══════════════════════════════════════
+   MOBILE  (≤ 480px)
+   Small phones — everything single column
+══════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  :root { --pad: 18px; }
+
+  /* ── NAV ── */
+  nav {
+    padding: 0 var(--pad);
+    height: 54px;
+  }
+
+  .nav-logo  { font-size: 1rem; }
+
+  .nav-resume {
+    font-size: 0.65rem;
+    padding: 5px 10px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    padding-top: 70px;
+    padding-bottom: 48px;
+    gap: 28px;
+  }
+
+  #hero h1 {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-sub { font-size: 0.88rem; }
+
+  /* stack buttons vertically on very small screens */
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-btns .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* card rows slightly smaller */
+  .card-row   { padding: 13px 16px; }
+  .card-label { font-size: 0.65rem; }
+  .card-value { font-size: 0.8rem; }
+
+  /* ── ABOUT ── */
+  #about { padding: 56px var(--pad); }
+
+  .skill-tags { gap: 6px; }
+  .tag { font-size: 0.73rem; padding: 5px 11px; }
+
+  /* ── PROJECTS ── */
+  #projects { padding: 56px var(--pad); }
+
+  .project-card { padding: 20px; }
+  .project-name { font-size: 1.05rem; }
+  .project-desc { font-size: 0.8rem; }
+
+  /* ── CONTACT ── */
+  #contact { padding: 56px var(--pad); }
+
+  .contact-form .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── FOOTER ── */
+  footer { padding: 18px var(--pad); }
+  .foot-top { display: none; }  /* hide back-to-top on very small screens */
+
+}
+
