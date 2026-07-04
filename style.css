@@ -907,3 +907,79 @@ footer {
     font-size: 0.68rem;
     padding: 6px 12px;
   }
+
+  /* ── HERO ── */
+  #hero {
+    flex-direction: column;          /* stack content and card vertically */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 60px;
+    gap: 36px;
+  }
+
+  .hero-content { max-width: 100%; }
+
+  .hero-label { font-size: 0.68rem; }
+
+  #hero h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); }
+
+  .hero-sub {
+    max-width: 100%;
+    font-size: 0.93rem;
+  }
+
+  .hero-btns {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* info card goes full width below the text */
+  .hero-card {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  /* ── ABOUT ── */
+  #about { padding: 72px var(--pad); }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .about-text h2 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+
+  /* ── PROJECTS ── */
+  #projects { padding: 72px var(--pad); }
+
+  .section-title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+
+  .projects-grid {
+    grid-template-columns: 1fr;    /* one card per row on tablet */
+    gap: 16px;
+  }
+
+  /* ── CONTACT ── */
+  #contact { padding: 72px var(--pad); }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-left h2 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+
+  /* ── FOOTER ── */
+  footer {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    padding: 20px var(--pad);
+  }
+
+  .footer-copy { order: 3; }  /* move copyright to the bottom */
+
+}
+
