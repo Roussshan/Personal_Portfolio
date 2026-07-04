@@ -847,6 +847,67 @@ footer {
     padding-bottom: 60px;
   }
 
+  /* ══════════════════════════════════════
+   LARGE LAPTOP / DESKTOP  (≤ 1280px)
+   Minor tweaks — everything still fits
+══════════════════════════════════════ */
+@media (max-width: 1280px) {
+
+  :root { --pad: 48px; }
+
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+}
+
+
+/* ══════════════════════════════════════
+   SMALL LAPTOP / TABLET LANDSCAPE (≤ 1024px)
+   Side-by-side layouts start to compress
+══════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  :root { --pad: 36px; }
+
+  /* nav — hide status dot, keep resume button */
+  .nav-status { display: none; }
+
+  /* hero — reduce gap between content and card */
+  #hero { gap: 32px; }
+
+  .hero-card { width: 220px; }
+
+  /* about — stack vertically */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* contact — stack vertically */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+}
+
+
+/* ══════════════════════════════════════
+   TABLET PORTRAIT  (≤ 768px)
+   One-column layout for most sections
+══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  :root { --pad: 24px; }
+
+  /* ── NAV ── */
+  nav { height: 58px; }
+  .nav-links  { display: none; }     /* hide the About/Projects/Contact links */
+  .nav-status { display: none; }
+  .nav-resume {
+    font-size: 0.68rem;
+    padding: 6px 12px;
+  }
+
   .hero-sub    { max-width: 100%; }
   .hero-btns   { justify-content: center; }
   .hero-card   { width: 100%; max-width: 340px; }
