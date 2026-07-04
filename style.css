@@ -825,7 +825,18 @@ footer {
 
 
 /* ─────────────────────────────────────────────
-   11. RESPONSIVE  (screens narrower than 900px)
+   11. RESPONSIVE
+   
+   Breakpoints used:
+   - 1280px  →  Large laptop / desktop
+   - 1024px  →  Small laptop / large tablet landscape
+   -  768px  →  Tablet portrait (iPad)
+   -  480px  →  Mobile
+   
+   How to read a media query:
+   @media (max-width: 768px) { ... }
+   means: "apply these styles ONLY when the
+   screen is 768px wide or narrower"
 ───────────────────────────────────────────── */
 @media (max-width: 900px) {
 
