@@ -249,6 +249,106 @@ nav {
 }
 
 
+/* Hamburger button — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.nav-hamburger:hover { background: var(--surface2); }
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+}
+
+/* Animate the three lines into an × when open */
+.nav-hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile slide-down menu */
+.nav-mobile-menu {
+  display: none;                    /* only shown on small screens */
+  position: fixed;
+  top: 64px;                        /* directly below the nav */
+  left: 0;
+  right: 0;
+  z-index: 499;
+  background: rgba(12, 12, 14, 0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 24px var(--pad) 28px;
+  flex-direction: column;
+  gap: 6px;
+
+  /* slide in from above */
+  transform: translateY(-12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+
+.mobile-link {
+  display: block;
+  padding: 12px 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s, padding-left 0.2s;
+}
+
+.mobile-link:hover {
+  color: var(--gold);
+  padding-left: 8px;
+}
+
+.mobile-resume {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.mobile-status {
+  margin-top: 14px;
+}
+
 /* ─────────────────────────────────────────────
    5. HERO SECTION
 ───────────────────────────────────────────── */
@@ -919,12 +1019,17 @@ footer {
 
   /* ── NAV ── */
   nav { height: 58px; }
-  .nav-links  { display: none; }     /* hide the About/Projects/Contact links */
-  .nav-status { display: none; }
-  .nav-resume {
-    font-size: 0.68rem;
-    padding: 6px 12px;
-  }
+  .nav-links       { display: none; }   /* links move into the drawer */
+  .nav-status      { display: none; }   /* status moves into the drawer */
+  .nav-right .nav-resume { display: none; } /* resume moves into the drawer */
+
+  /* Show hamburger */
+  .nav-hamburger   { display: flex; }
+
+  /* Show the mobile menu container (still invisible until .open is added) */
+  .nav-mobile-menu { display: flex; top: 58px; }
+
+  .nav-mobile-menu.open { display: flex; }
 
   /* ── HERO ── */
   #hero {
@@ -1018,11 +1123,8 @@ footer {
 
   .nav-logo  { font-size: 1rem; }
 
-  .nav-resume {
-    font-size: 0.65rem;
-    padding: 5px 10px;
-    letter-spacing: 0.04em;
-  }
+  /* mobile menu sits under the 54px nav */
+  .nav-mobile-menu { top: 54px; }
 
   /* ── HERO ── */
   #hero {
