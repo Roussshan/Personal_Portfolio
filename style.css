@@ -200,6 +200,14 @@ nav {
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
+/* Active nav link — highlights the current section */
+.nav-links a.active {
+  color: var(--text);
+}
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
 .nav-status {
   display: flex;
   align-items: center;
