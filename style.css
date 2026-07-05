@@ -491,11 +491,13 @@ nav::before {
 
 /* right: info card */
 .hero-card {
-  flex-shrink: 0;             /* don't let it shrink */
-  width: 260px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  flex-shrink: 0;
+  width: 320px;
+  background: rgba(10, 10, 12, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   overflow: hidden;
 }
 
@@ -503,32 +505,36 @@ nav::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 22px 28px;
 }
 
 .card-label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--text-muted);
 }
 
 .card-value {
-  font-size: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--text);
-  font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 /* green "Available" inside the card */
-.card-value.available { color: #4ade80; }
+.card-value.available {
+  color: #4ade80;
+  font-size: 1.05rem;
+}
 
 .card-divider {
   height: 1px;
-  background: var(--border);
+  background: rgba(255, 255, 255, 0.07);
+  margin: 0 28px;
 }
 
 
@@ -1013,7 +1019,7 @@ footer {
 
   .hero-content { max-width: 500px; }
 
-  .hero-card { width: 220px; }
+  .hero-card { width: 260px; }
 
   /* about — stack vertically */
   .about-grid {
@@ -1194,9 +1200,9 @@ footer {
   }
 
   /* card rows slightly smaller */
-  .card-row   { padding: 13px 16px; }
+  .card-row   { padding: 16px 20px; }
   .card-label { font-size: 0.65rem; }
-  .card-value { font-size: 0.8rem; }
+  .card-value { font-size: 0.9rem; }
 
   /* ── ABOUT ── */
   #about { padding: 56px var(--pad); }
