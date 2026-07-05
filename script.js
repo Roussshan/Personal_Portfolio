@@ -26,7 +26,69 @@ setTimeout(hideLoader, 3000);
 
 
 /* ─────────────────────────────────────────────
-   2. SCROLL REVEAL
+   2. TYPING ANIMATION
+   Cycles through phrases in the hero heading.
+   Each phrase is typed out, paused, then deleted
+   before the next one starts.
+───────────────────────────────────────────── */
+(function () {
+  var phrases   = [
+    'for learning.',
+    'for fun.',
+    'for impact.',
+    'to solve problems.',
+    'to grow every day.'
+  ];
+  var el        = document.getElementById('typing-text');
+  var current   = 0;   // index of current phrase
+  var charIndex = 0;   // how many chars are typed so far
+  var deleting  = false;
+
+  var TYPE_SPEED   = 80;   // ms per character while typing
+  var DELETE_SPEED = 40;   // ms per character while deleting
+  var PAUSE_END    = 1800; // ms to wait at the end of a phrase
+  var PAUSE_START  = 300;  // ms to wait before typing next phrase
+
+  function tick() {
+    var phrase = phrases[current];
+
+    if (!deleting) {
+      // Type one character
+      charIndex++;
+      el.textContent = phrase.slice(0, charIndex);
+
+      if (charIndex === phrase.length) {
+        // Finished typing — pause then start deleting
+        setTimeout(function () {
+          deleting = true;
+          tick();
+        }, PAUSE_END);
+        return;
+      }
+    } else {
+      // Delete one character
+      charIndex--;
+      el.textContent = phrase.slice(0, charIndex);
+
+      if (charIndex === 0) {
+        // Finished deleting — move to next phrase
+        deleting = false;
+        current  = (current + 1) % phrases.length;
+        setTimeout(tick, PAUSE_START);
+        return;
+      }
+    }
+
+    setTimeout(tick, deleting ? DELETE_SPEED : TYPE_SPEED);
+  }
+
+  // Start after the loader is gone (1.4 s)
+  setTimeout(tick, 1400);
+})();
+
+
+/* ─────────────────────────────────────────────
+   3. SCROLL REVEAL
    Elements start invisible (.reveal in CSS),
    script adds .visible when they enter view.
 ───────────────────────────────────────────── */
