@@ -109,7 +109,46 @@ revealElements.forEach(function (el) {
 
 
 /* ─────────────────────────────────────────────
-   3. HAMBURGER MENU
+   4. ACTIVE NAV LINK (scroll spy)
+   Watches each section. When a section crosses
+   the top third of the viewport, its matching
+   nav link gets the "active" class.
+───────────────────────────────────────────── */
+(function () {
+  var sections  = document.querySelectorAll('section[id]');
+  var navLinks  = document.querySelectorAll('.nav-links a');
+
+  function setActive(id) {
+    navLinks.forEach(function (link) {
+      if (link.getAttribute('href') === '#' + id) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  var sectionObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      // Only react when the section enters the viewport
+      if (entry.isIntersecting) {
+        setActive(entry.target.id);
+      }
+    });
+  }, {
+    // Fire when the section hits the top third of the screen
+    rootMargin: '0px 0px -60% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function (section) {
+    sectionObserver.observe(section);
+  });
+})();
+
+
+/* ─────────────────────────────────────────────
+   5. HAMBURGER MENU
    Toggles the mobile nav drawer open/closed.
 ───────────────────────────────────────────── */
 var hamburger  = document.getElementById('nav-hamburger');
@@ -155,7 +194,7 @@ document.addEventListener('click', function (e) {
 
 
 /* ─────────────────────────────────────────────
-   4. CONTACT FORM
+   6. CONTACT FORM
    Prevents page reload and shows a success
    state on the button for 3.5 seconds.
 ───────────────────────────────────────────── */
