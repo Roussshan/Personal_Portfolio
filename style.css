@@ -154,9 +154,28 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--pad);
-  background: rgba(12, 12, 14, 0.85);
-  backdrop-filter: blur(16px); /* frosted glass effect */
+  background: rgba(12, 12, 14, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid var(--border);
+  /* Neon glow effect — text beneath the nav bleeds through */
+  box-shadow:
+    0 1px 0 rgba(201, 168, 76, 0.08),
+    0 4px 24px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(201, 168, 76, 0.06);
+}
+
+/* Glow mask — a soft gradient that tints text passing under nav */
+nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(201, 168, 76, 0.04) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .nav-logo {
