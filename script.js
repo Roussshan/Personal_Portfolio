@@ -135,40 +135,75 @@ skillBars.forEach(function (bar) {
 
 
 /* ─────────────────────────────────────────────
-   4. ACTIVE NAV LINK (scroll spy)
-   Watches each section. When a section crosses
-   the top third of the viewport, its matching
-   nav link gets the "active" class.
+   5. ACTIVE NAV LINK (smooth scroll spy)
+   Watches each section and slides a gold bar
+   under the matching nav link as you scroll.
 ───────────────────────────────────────────── */
 (function () {
-  var sections  = document.querySelectorAll('section[id]');
-  var navLinks  = document.querySelectorAll('.nav-links a');
+  var sections = document.querySelectorAll('section[id]');
+  var navLinks = document.querySelectorAll('.nav-links a');
+  var navList  = document.querySelector('.nav-links');
 
+  // Inject the sliding indicator bar into the <ul>
+  var indicator = document.createElement('span');
+  indicator.className = 'nav-indicator';
+  navList.appendChild(indicator);
+
+  // Move the indicator under whichever link is active
+  function moveIndicator(link) {
+    if (!link) {
+      indicator.style.opacity = '0';
+      return;
+    }
+    var linkRect = link.getBoundingClientRect();
+    var listRect = navList.getBoundingClientRect();
+    indicator.style.left    = (linkRect.left - listRect.left) + 'px';
+    indicator.style.width   = linkRect.width + 'px';
+    indicator.style.opacity = '1';
+  }
+
+  // Set active class + slide indicator
   function setActive(id) {
+    var activeLink = null;
     navLinks.forEach(function (link) {
       if (link.getAttribute('href') === '#' + id) {
         link.classList.add('active');
+        activeLink = link;
       } else {
         link.classList.remove('active');
       }
     });
+    moveIndicator(activeLink);
   }
 
+  // IntersectionObserver — fires when a section hits the upper ~40%
   var sectionObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
-      // Only react when the section enters the viewport
       if (entry.isIntersecting) {
         setActive(entry.target.id);
       }
     });
   }, {
-    // Fire when the section hits the top third of the screen
     rootMargin: '0px 0px -60% 0px',
     threshold: 0
   });
 
   sections.forEach(function (section) {
     sectionObserver.observe(section);
+  });
+
+  // Also update on click so it feels instant
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      var id = link.getAttribute('href').replace('#', '');
+      setActive(id);
+    });
+  });
+
+  // Reposition on window resize (font/layout shifts)
+  window.addEventListener('resize', function () {
+    var active = document.querySelector('.nav-links a.active');
+    moveIndicator(active || null);
   });
 })();
 
