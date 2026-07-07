@@ -190,6 +190,7 @@ nav::before {
   display: flex;
   gap: 32px;
   list-style: none;
+  position: relative; /* anchor for the sliding indicator */
 }
 
 .nav-links a {
@@ -219,12 +220,27 @@ nav::before {
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { transform: scaleX(1); }
 
-/* Active nav link — highlights the current section */
+/* Active nav link */
 .nav-links a.active {
   color: var(--text);
 }
 .nav-links a.active::after {
   transform: scaleX(1);
+}
+
+/* Sliding pill indicator behind active link */
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px 2px 0 0;
+  /* smooth glide between links */
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .nav-status {
