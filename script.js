@@ -109,6 +109,32 @@ revealElements.forEach(function (el) {
 
 
 /* ─────────────────────────────────────────────
+   3b. SKILL BAR ANIMATION
+   When a bar scrolls into view, animate its
+   width from 0 to the value in data-width.
+───────────────────────────────────────────── */
+var skillBars = document.querySelectorAll('.skill-bar-fill');
+
+var barObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      var target = entry.target;
+      var width  = target.getAttribute('data-width');
+      // slight delay so bars animate one after the other
+      setTimeout(function () {
+        target.style.width = width + '%';
+      }, 150);
+      barObserver.unobserve(target);
+    }
+  });
+}, { threshold: 0.3 });
+
+skillBars.forEach(function (bar) {
+  barObserver.observe(bar);
+});
+
+
+/* ─────────────────────────────────────────────
    4. ACTIVE NAV LINK (scroll spy)
    Watches each section. When a section crosses
    the top third of the viewport, its matching
