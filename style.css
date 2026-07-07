@@ -622,6 +622,147 @@ nav::before {
 
 
 /* ─────────────────────────────────────────────
+   6b. EDUCATION SECTION
+───────────────────────────────────────────── */
+#education {
+  padding: 100px var(--pad);
+  border-bottom: 1px solid var(--border);
+}
+
+/* vertical line running down the left */
+.edu-timeline {
+  position: relative;
+  margin-top: 48px;
+  padding-left: 32px;
+}
+
+.edu-timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--gold) 0%,
+    var(--gold-border) 60%,
+    transparent 100%
+  );
+}
+
+/* each row */
+.edu-entry {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.edu-entry:last-child { margin-bottom: 0; }
+
+/* the gold dot on the timeline */
+.edu-dot {
+  position: absolute;
+  left: -28px;
+  top: 22px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+/* the card */
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.edu-card:hover {
+  border-color: var(--gold-border);
+  transform: translateX(4px);
+}
+
+/* top row: title + badge */
+.edu-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.edu-degree {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.edu-school {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* "Current" green badge */
+.edu-badge {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* year tag for past entries */
+.edu-year {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* meta row: date · specialisation · location */
+.edu-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.edu-meta-item {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* description */
+.edu-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-weight: 300;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+
+/* ─────────────────────────────────────────────
    7. PROJECTS SECTION
 ───────────────────────────────────────────── */
 #projects {
@@ -1219,6 +1360,13 @@ footer {
 
   .about-text h2 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
 
+  /* ── EDUCATION ── */
+  #education { padding: 72px var(--pad); }
+
+  .edu-timeline { padding-left: 24px; }
+
+  .edu-card { padding: 20px 22px; }
+
   /* ── PROJECTS ── */
   #projects { padding: 72px var(--pad); }
 
@@ -1312,6 +1460,13 @@ footer {
 
   .skill-tags { gap: 6px; }
   .tag { font-size: 0.73rem; padding: 5px 11px; }
+
+  /* ── EDUCATION ── */
+  #education { padding: 56px var(--pad); }
+
+  .edu-degree  { font-size: 1rem; }
+  .edu-timeline { padding-left: 20px; }
+  .edu-card { padding: 16px 18px; gap: 10px; }
 
   /* ── PROJECTS ── */
   #projects { padding: 56px var(--pad); }
