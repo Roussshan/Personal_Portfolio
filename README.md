@@ -1,115 +1,91 @@
-# 🌐 Personal Portfolio
+# Personal Portfolio
 
-A simple, responsive personal portfolio website built to showcase my **skills**, **projects**, and a bit about **myself** — built as a Computer Science student learning front-end web development.
+A responsive personal portfolio website built with HTML, CSS, and vanilla JavaScript.
 
-🔗 **Live Demo:**
+It is designed to present profile details, education, projects, certifications, and contact information in a clean single-page layout.
 
----
+## Live Demo
 
-## 📸 Preview
+Add your deployed link here:
 
-<img width="1920" height="963" alt="image" src="https://github.com/user-attachments/assets/998febca-db5c-4962-9569-ffb80cd19724" />
-<img width="1920" height="963" alt="image" src="https://github.com/user-attachments/assets/f422869e-8b3d-4cc6-a9e1-3cb94190de2f" />
+- https://your-portfolio-url.com
 
+## Features
 
-```md
-![Portfolio Screenshot](new.jpg)
-```
+- Animated loader on initial page load
+- Typing effect in the hero section
+- Scroll reveal animations using IntersectionObserver
+- Animated skill progress bars on scroll
+- Sticky navigation with active-link indicator
+- Mobile-friendly hamburger navigation menu
+- Contact form UX with success-state button feedback
+- Responsive layout for desktop, tablet, and mobile
 
----
+## Tech Stack
 
-## ✨ Features
+- HTML5
+- CSS3
+- JavaScript (vanilla)
 
-- 🎯 Clean, minimal design to highlight skills and projects
-- 🎬 **Loading screen** that fades out smoothly once the page loads
-- 👀 **Scroll animations** — sections fade & slide into view as you scroll
-- 📩 **Contact form** with an interactive "Sent ✓" confirmation on the button
-- 📱 Responsive layout (works on desktop, tablet, and mobile)
+No frameworks or external JavaScript libraries are required.
 
----
+## Project Structure
 
-## 🛠️ Built With
-
-- **HTML5** — page structure
-- **CSS3** — styling and animations
-- **JavaScript (Vanilla JS)** — loader, scroll reveal, and contact form logic
-
-No frameworks or libraries — just plain HTML, CSS, and JS. Great for beginners to read and learn from!
-
----
-
-## 📂 Project Structure
-
-```
+```text
 Personal_Portfolio/
-│
-├── index.html      # Main HTML file — page structure & content
-├── style.css       # All styling (colors, layout, animations)
-├── script.js       # JavaScript — loader, scroll reveal, contact form
-└── new.jpg         # Image used in the portfolio
+├── index.html    # Main page markup and sections
+├── style.css     # Styling, layout, animations, responsive rules
+├── script.js     # Loader, typing, reveal, nav, and form behavior
+└── README.md
 ```
 
----
+## Run Locally
 
-## ⚙️ How It Works
+1. Clone the repository:
 
-The `script.js` file handles three main things:
-
-### 1. Page Loader
-When the page finishes loading, a loading screen (`#loader`) waits 1.2 seconds and then fades out smoothly using a CSS class called `done`.
-
-### 2. Scroll Reveal Animation
-Elements with the class `.reveal` start off invisible. As you scroll and they enter the screen, JavaScript's `IntersectionObserver` adds a `.visible` class to them, triggering a smooth fade-and-slide-in animation defined in `style.css`.
-
-### 3. Contact Form
-When the form is submitted, the page **does not reload**. Instead, the "Send" button changes to a green **"Sent ✓"** state for 3.5 seconds before resetting back to normal.
-
-> 📌 **Note:** The form currently only simulates sending a message (for demo purposes). To make it actually send emails, connect it to a service like [EmailJS](https://www.emailjs.com/) or [Formspree](https://formspree.io/).
-
----
-
-## 🚀 Getting Started
-
-Want to run this project on your own computer? Here's how:
-
-### 1. Clone the repository
 ```bash
 git clone https://github.com/Roussshan/Personal_Portfolio.git
 ```
 
-### 2. Move into the project folder
+2. Move into the project folder:
+
 ```bash
 cd Personal_Portfolio
 ```
 
-### 3. Open it in your browser
-Simply double-click `index.html`, or right-click it and choose **"Open with"** → your preferred browser.
+3. Open index.html in your browser.
 
-That's it — no installation, no build tools, no dependencies needed! 🎉
+Alternative:
 
----
+- Use the VS Code Live Server extension and click Go Live.
 
-## 🧑‍💻 About Me
+## Customization Guide
 
-I'm a Computer Science student building this portfolio to learn and showcase front-end web development skills. This project helped me practice:
+Update these parts to personalize the portfolio:
 
-- Working with the DOM in vanilla JavaScript
-- Using `IntersectionObserver` for scroll animations
-- Structuring a small multi-file web project
-- Writing clean, beginner-friendly, well-commented code
+- Profile text, sections, and metadata in index.html
+- Colors, fonts, spacing, and animation style in style.css
+- Typing phrases and interaction logic in script.js
+- Resume file link in the navigation section of index.html
 
----
+If you are adding real message delivery to the contact form, connect it to a backend API or a form service such as Formspree/EmailJS.
 
-## 📬 Contact
+## Deployment
 
-Feel free to reach out or connect with me!
+You can deploy this static site on:
 
-- GitHub: [@Roussshan](https://github.com/Roussshan)
-- Email: roussshan@gmail.com
+- GitHub Pages
+- Netlify
+- Vercel
+
+After deployment, replace the Live Demo URL in this README.
+
+## Contact
+
+- GitHub: https://github.com/Roussshan
 - LinkedIn: https://www.linkedin.com/in/roushan-kumar-539178381/
+- Email: roussshan@gmail.com
 
----
+## License
 
-## 📄 License
-
-This project is open source and free to use for learning purposes. Feel free to fork it and build your own portfolio! ⭐ If you find it helpful, consider giving it a star.
+This project is available for personal use and learning.
