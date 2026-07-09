@@ -135,6 +135,47 @@ skillBars.forEach(function (bar) {
 
 
 /* ─────────────────────────────────────────────
+   3c. EDUCATION CARD ANIMATION
+   Cards fade+slide up on scroll, score bars
+   animate to their real width when visible.
+───────────────────────────────────────────── */
+var eduCards = document.querySelectorAll('.edu-card-new');
+
+var eduObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('edu-visible');
+      eduObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+eduCards.forEach(function (card) {
+  eduObserver.observe(card);
+});
+
+/* animate score bars when the card becomes visible */
+var scoreBarObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      var fill = entry.target;
+      var targetWidth = fill.getAttribute('data-score');
+      if (targetWidth) {
+        setTimeout(function () {
+          fill.style.width = targetWidth + '%';
+        }, 300);
+      }
+      scoreBarObserver.unobserve(fill);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.edu-bar-fill').forEach(function (bar) {
+  scoreBarObserver.observe(bar);
+});
+
+
+/* ─────────────────────────────────────────────
    5. ACTIVE NAV LINK (smooth scroll spy)
    Watches each section and slides a gold bar
    under the matching nav link as you scroll.
