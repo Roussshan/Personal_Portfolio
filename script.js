@@ -135,10 +135,34 @@ skillBars.forEach(function (bar) {
 
 
 /* ─────────────────────────────────────────────
-   3c. EDUCATION CARD ANIMATION
-   Cards fade+slide up on scroll, score bars
-   animate to their real width when visible.
+   3c. CARD POP-IN + MOUSE GLOW
+   Handles ALL card types:
+     - project-card, cert-card  → .card-visible
+     - edu-card-new             → .edu-visible
+   Also tracks the mouse inside each card to
+   move a soft radial glow with the cursor.
 ───────────────────────────────────────────── */
+
+/* --- Pop-in on scroll --- */
+var allCards = document.querySelectorAll('.project-card, .cert-card');
+
+var cardObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      var card  = entry.target;
+      var index = Array.from(allCards).indexOf(card);
+      /* stagger: each card 80 ms after the previous */
+      setTimeout(function () {
+        card.classList.add('card-visible');
+      }, index * 80);
+      cardObserver.unobserve(card);
+    }
+  });
+}, { threshold: 0.1 });
+
+allCards.forEach(function (card) { cardObserver.observe(card); });
+
+/* --- Edu card pop-in (keeps its own stagger delays in CSS) --- */
 var eduCards = document.querySelectorAll('.edu-card-new');
 
 var eduObserver = new IntersectionObserver(function (entries) {
@@ -150,11 +174,24 @@ var eduObserver = new IntersectionObserver(function (entries) {
   });
 }, { threshold: 0.12 });
 
-eduCards.forEach(function (card) {
-  eduObserver.observe(card);
+eduCards.forEach(function (card) { eduObserver.observe(card); });
+
+/* --- Mouse-tracking glow for ALL card types --- */
+var glowCards = document.querySelectorAll(
+  '.project-card, .cert-card, .edu-card-new'
+);
+
+glowCards.forEach(function (card) {
+  card.addEventListener('mousemove', function (e) {
+    var rect = card.getBoundingClientRect();
+    var x = ((e.clientX - rect.left) / rect.width)  * 100;
+    var y = ((e.clientY - rect.top)  / rect.height) * 100;
+    card.style.setProperty('--mx', x + '%');
+    card.style.setProperty('--my', y + '%');
+  });
 });
 
-/* animate score bars when the card becomes visible */
+/* --- Score bars animate when edu card becomes visible --- */
 var scoreBarObserver = new IntersectionObserver(function (entries) {
   entries.forEach(function (entry) {
     if (entry.isIntersecting) {
@@ -163,7 +200,7 @@ var scoreBarObserver = new IntersectionObserver(function (entries) {
       if (targetWidth) {
         setTimeout(function () {
           fill.style.width = targetWidth + '%';
-        }, 300);
+        }, 350);
       }
       scoreBarObserver.unobserve(fill);
     }
