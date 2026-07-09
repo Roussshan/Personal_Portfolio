@@ -333,24 +333,43 @@ document.addEventListener('click', function (e) {
 
 
 /* ─────────────────────────────────────────────
-   6. CONTACT FORM
-   Prevents page reload and shows a success
-   state on the button for 3.5 seconds.
+   6. CONTACT FORM — WhatsApp (wa.me)
+   Builds a pre-filled WhatsApp message from
+   the form fields and opens it in a new tab.
 ───────────────────────────────────────────── */
 function sendMessage(event) {
   event.preventDefault();
 
-  var button = document.getElementById('send-btn');
+  var name    = document.getElementById('name').value.trim();
+  var email   = document.getElementById('email').value.trim();
+  var message = document.getElementById('message').value.trim();
+  var button  = document.getElementById('send-btn');
 
-  button.textContent      = 'Sent ✓';
-  button.style.background = '#4ade80';
-  button.style.color      = '#0c0c0e';
+  /* Build the WhatsApp message text */
+  var text =
+    '👋 Hi Roushan, I found you on your portfolio!\n\n' +
+    '*Name:* '    + name    + '\n' +
+    '*Email:* '   + email   + '\n\n' +
+    '*Message:*\n' + message;
+
+  /* Encode and open wa.me link */
+  var waURL = 'https://wa.me/918529067144?text=' + encodeURIComponent(text);
+  window.open(waURL, '_blank');
+
+  /* Button feedback */
+  button.textContent      = 'Opening WhatsApp ↗';
+  button.style.background = '#25d366';
+  button.style.color      = '#fff';
   button.disabled         = true;
 
+  /* Reset form + button after 3 s */
   setTimeout(function () {
     button.textContent      = 'Send Message';
     button.style.background = '';
     button.style.color      = '';
     button.disabled         = false;
-  }, 3500);
+    document.getElementById('name').value    = '';
+    document.getElementById('email').value   = '';
+    document.getElementById('message').value = '';
+  }, 3000);
 }
