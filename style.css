@@ -718,12 +718,12 @@ nav::before {
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.35s ease,
               border-color 0.3s ease;
-  /* staggered entrance — overridden per-card below */
+  /* entrance hidden */
   opacity: 0;
-  transform: translateY(28px);
+  transform: scale(0.93) translateY(24px);
 }
 
-/* subtle noise / dot-grid pattern overlay */
+/* dot-grid texture */
 .edu-card-new::before {
   content: '';
   position: absolute;
@@ -735,7 +735,7 @@ nav::before {
   z-index: 0;
 }
 
-/* glowing corner accent — colour set per card */
+/* corner glow blob (static, colour per card) */
 .edu-card-new::after {
   content: '';
   position: absolute;
@@ -753,58 +753,84 @@ nav::before {
 
 .edu-card-new:hover::after { opacity: 0.32; }
 
-.edu-card-new > * { position: relative; z-index: 1; }
-
-/* ── Per-card accent colours — yellow family ── */
-
-/* B.Tech — deep amber #e8a020 */
-.edu-card-new:nth-child(1) {
-  border-top: 2px solid rgba(232, 160, 32, 0.55);
-  border-left: 2px solid rgba(232, 160, 32, 0.55);
-}
-.edu-card-new:nth-child(1)::after { background: #e8a020; }
-.edu-card-new:nth-child(1) .edu-card-icon-wrap { background: rgba(232,160,32,0.1); border-color: rgba(232,160,32,0.28); }
-.edu-card-new:nth-child(1) .edu-card-icon { color: #e8a020; }
-
-/* Class XII — warm gold #c9a84c (site's existing gold) */
-.edu-card-new:nth-child(2) {
-  border-top: 2px solid rgba(201, 168, 76, 0.55);
-  border-left: 2px solid rgba(201, 168, 76, 0.55);
-}
-.edu-card-new:nth-child(2)::after { background: #c9a84c; }
-.edu-card-new:nth-child(2) .edu-card-icon-wrap { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.28); }
-.edu-card-new:nth-child(2) .edu-card-icon { color: #c9a84c; }
-.edu-card-new:nth-child(2) .edu-bar-fill { background: linear-gradient(90deg, #c9a84c, #e5c36e); }
-.edu-card-new:nth-child(2) .edu-score-value { color: #c9a84c; }
-
-/* Class X — pale butter #f0d87a */
-.edu-card-new:nth-child(3) {
-  border-top: 2px solid rgba(240, 216, 122, 0.55);
-  border-left: 2px solid rgba(240, 216, 122, 0.55);
-}
-.edu-card-new:nth-child(3)::after { background: #f0d87a; }
-.edu-card-new:nth-child(3) .edu-card-icon-wrap { background: rgba(240,216,122,0.1); border-color: rgba(240,216,122,0.28); }
-.edu-card-new:nth-child(3) .edu-card-icon { color: #f0d87a; }
-.edu-card-new:nth-child(3) .edu-bar-fill { background: linear-gradient(90deg, #f0d87a, #faedb5); }
-.edu-card-new:nth-child(3) .edu-score-value { color: #f0d87a; }
-
-/* ── Hover lift ── */
-.edu-card-new:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.45);
+/* cursor-tracking glow */
+.edu-card-new .card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-/* ── Scroll-in animation ── */
+.edu-card-new:hover .card-glow { opacity: 1; }
+
+/* all direct children above pseudo + glow */
+.edu-card-new > *:not(.card-glow) { position: relative; z-index: 1; }
+
+/* pop-in on scroll */
 .edu-card-new.edu-visible {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.34,1.2,0.64,1);
+  transform: scale(1) translateY(0);
+  transition: opacity 0.55s ease,
+              transform 0.55s cubic-bezier(0.34,1.4,0.64,1),
+              box-shadow 0.35s ease,
+              border-color 0.3s ease;
 }
 
 /* stagger delays */
 .edu-card-new:nth-child(1).edu-visible { transition-delay: 0.05s; }
 .edu-card-new:nth-child(2).edu-visible { transition-delay: 0.18s; }
 .edu-card-new:nth-child(3).edu-visible { transition-delay: 0.31s; }
+
+/* hover lift */
+.edu-card-new:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.5);
+}
+
+/* ── Per-card accent colours — yellow family ── */
+
+/* B.Tech — deep amber */
+.edu-card-new:nth-child(1) {
+  border-top: 2px solid rgba(232,160,32,0.55);
+  border-left: 2px solid rgba(232,160,32,0.55);
+}
+.edu-card-new:nth-child(1)::after { background: #e8a020; }
+.edu-card-new:nth-child(1) .card-glow {
+  background: radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(232,160,32,0.14) 0%, transparent 68%);
+}
+.edu-card-new:nth-child(1) .edu-card-icon-wrap { background: rgba(232,160,32,0.1); border-color: rgba(232,160,32,0.28); }
+.edu-card-new:nth-child(1) .edu-card-icon { color: #e8a020; }
+
+/* Class XII — warm gold */
+.edu-card-new:nth-child(2) {
+  border-top: 2px solid rgba(201,168,76,0.55);
+  border-left: 2px solid rgba(201,168,76,0.55);
+}
+.edu-card-new:nth-child(2)::after { background: #c9a84c; }
+.edu-card-new:nth-child(2) .card-glow {
+  background: radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(201,168,76,0.14) 0%, transparent 68%);
+}
+.edu-card-new:nth-child(2) .edu-card-icon-wrap { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.28); }
+.edu-card-new:nth-child(2) .edu-card-icon { color: #c9a84c; }
+.edu-card-new:nth-child(2) .edu-bar-fill { background: linear-gradient(90deg,#c9a84c,#e5c36e); }
+.edu-card-new:nth-child(2) .edu-score-value { color: #c9a84c; }
+
+/* Class X — pale butter */
+.edu-card-new:nth-child(3) {
+  border-top: 2px solid rgba(240,216,122,0.55);
+  border-left: 2px solid rgba(240,216,122,0.55);
+}
+.edu-card-new:nth-child(3)::after { background: #f0d87a; }
+.edu-card-new:nth-child(3) .card-glow {
+  background: radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(240,216,122,0.12) 0%, transparent 68%);
+}
+.edu-card-new:nth-child(3) .edu-card-icon-wrap { background: rgba(240,216,122,0.1); border-color: rgba(240,216,122,0.28); }
+.edu-card-new:nth-child(3) .edu-card-icon { color: #f0d87a; }
+.edu-card-new:nth-child(3) .edu-bar-fill { background: linear-gradient(90deg,#f0d87a,#faedb5); }
+.edu-card-new:nth-child(3) .edu-score-value { color: #f0d87a; }
 
 /* ── Icon wrapper ── */
 .edu-card-icon-wrap {
@@ -1020,12 +1046,47 @@ nav::before {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: border-color 0.25s, transform 0.25s;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease;
+  /* entrance: start hidden */
+  opacity: 0;
+  transform: scale(0.93) translateY(22px);
+}
+
+/* glow blob that JS moves with cursor */
+.project-card .card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(201,168,76,0.13) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+.project-card:hover .card-glow { opacity: 1; }
+.project-card > *:not(.card-glow) { position: relative; z-index: 1; }
+
+/* pop-in when .card-visible is added by JS */
+.project-card.card-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity 0.5s ease,
+              transform 0.5s cubic-bezier(0.34,1.4,0.64,1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
 }
 
 .project-card:hover {
   border-color: var(--gold-border);
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 0 1px var(--gold-border);
 }
 
 .project-top {
@@ -1123,12 +1184,46 @@ nav::before {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.25s, transform 0.25s;
+  position: relative;
+  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease;
+  /* entrance: start hidden */
+  opacity: 0;
+  transform: scale(0.93) translateY(22px);
+}
+
+/* glow blob */
+.cert-card .card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(201,168,76,0.14) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+.cert-card:hover .card-glow { opacity: 1; }
+.cert-card > *:not(.card-glow) { position: relative; z-index: 1; }
+
+/* pop-in */
+.cert-card.card-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity 0.5s ease,
+              transform 0.5s cubic-bezier(0.34,1.4,0.64,1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
 }
 
 .cert-card:hover {
   border-color: var(--gold-border);
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 0 1px var(--gold-border);
 }
 
 /* Certificate image area */
