@@ -1032,134 +1032,433 @@ nav::before {
   margin-bottom: 48px;
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.project-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  position: relative;
+/* ─────────────────────────────────────────────
+   7. PROJECTS — uneven bento grid, all visible
+───────────────────────────────────────────── */
+#projects {
+  padding: 100px var(--pad);
+  border-bottom: 1px solid var(--border);
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s ease;
-  /* entrance: start hidden */
-  opacity: 0;
-  transform: scale(0.93) translateY(22px);
 }
 
-/* glow blob that JS moves with cursor */
-.project-card .card-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(
-    380px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(201,168,76,0.13) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  border-radius: inherit;
+/* ── Bento wrapper ── */
+.pbento {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 0.85fr 1.15fr;
+  grid-template-rows: 260px 260px;
+  gap: 14px;
+  margin-top: 0;
+  align-items: stretch;
 }
 
-.project-card:hover .card-glow { opacity: 1; }
-.project-card > *:not(.card-glow) { position: relative; z-index: 1; }
+/* card 1 — tall, spans 2 rows, left */
+.pbento .pcard:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
 
-/* pop-in when .card-visible is added by JS */
-.project-card.card-visible {
+/* card 2 — normal, top middle-left */
+.pbento .pcard:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* card 3 — normal, top middle-right */
+.pbento .pcard:nth-child(3) {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+/* card 4 — tall, spans 2 rows, right */
+.pbento .pcard:nth-child(4) {
+  grid-column: 4;
+  grid-row: 1 / 3;
+}
+
+/* ── Wide bottom card spanning col 2-3 ── */
+.pbento .pcard:nth-child(2) { grid-row: 1; }
+.pbento .pcard:nth-child(3) { grid-row: 2; grid-column: 2; }
+
+/* reconfigure: bottom row col 2-3 share the space */
+.pbento .pcard:nth-child(3) {
+  grid-column: 2 / 4;
+  grid-row: 2;
+}
+
+/* ── Portrait card base ── */
+.pcard {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.07);
+  /* entrance */
+  opacity: 0;
+  transform: scale(0.94) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34,1.3,0.64,1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+/* entrance pop */
+.pcard.card-visible {
   opacity: 1;
   transform: scale(1) translateY(0);
   transition: opacity 0.5s ease,
               transform 0.5s cubic-bezier(0.34,1.4,0.64,1),
-              border-color 0.3s ease,
-              box-shadow 0.35s ease;
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
 }
 
-.project-card:hover {
-  border-color: var(--gold-border);
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 18px 44px rgba(0,0,0,0.45), 0 0 0 1px var(--gold-border);
+/* stagger */
+.pcard:nth-child(1).card-visible { transition-delay: 0.05s; }
+.pcard:nth-child(2).card-visible { transition-delay: 0.14s; }
+.pcard:nth-child(3).card-visible { transition-delay: 0.23s; }
+.pcard:nth-child(4).card-visible { transition-delay: 0.32s; }
+
+/* hover: subtle lift + tilt via JS transform */
+.pcard:hover {
+  box-shadow: 0 28px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.18);
+  border-color: rgba(201,168,76,0.22);
+  z-index: 2;
 }
 
-.project-top {
+/* ── Background gradient ── */
+.pcard-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.pcard:hover .pcard-bg { transform: scale(1.06); }
+
+/* ── Dark overlay ── */
+.pcard-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(8,8,10,0.18) 0%,
+    rgba(8,8,10,0.55) 50%,
+    rgba(8,8,10,0.93) 100%
+  );
+  transition: opacity 0.4s ease;
+}
+
+/* ── Cursor glow layer ── */
+.pcard-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--mx,50%) var(--my,50%),
+    rgba(201,168,76,0.18) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.pcard:hover .pcard-glow { opacity: 1; }
+
+/* ── Icon badge ── */
+.pcard-icon-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.25rem;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255,255,255,0.08);
+  z-index: 3;
+  transition: transform 0.3s ease;
+}
+
+.pcard:hover .pcard-icon-badge { transform: scale(1.1) rotate(-4deg); }
+
+/* ── Content (always at bottom) ── */
+.pcard-content {
+  position: absolute;
+  inset: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px 20px;
+  z-index: 3;
+  gap: 7px;
 }
 
-.project-tag {
+/* tag */
+.pcard-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.28);
+  padding: 3px 9px;
+  border-radius: 20px;
+  align-self: flex-start;
+}
+
+/* title */
+.pcard-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* subtitle */
+.pcard-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+}
+
+/* description — hidden until hover on tall cards */
+.pcard-desc {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.65;
+  font-weight: 300;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.35s ease 0.08s;
+}
+
+.pcard:hover .pcard-desc {
+  max-height: 120px;
+  opacity: 1;
+}
+
+/* stack pills */
+.pcard-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease 0.05s, opacity 0.35s ease 0.12s;
+}
+
+.pcard:hover .pcard-stack {
+  max-height: 80px;
+  opacity: 1;
+}
+
+.pcard-stack span {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+/* links */
+.pcard-links {
+  display: flex;
+  gap: 7px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease 0.1s, opacity 0.35s ease 0.18s;
+}
+
+.pcard:hover .pcard-links {
+  max-height: 60px;
+  opacity: 1;
+}
+
+.pcard-btn {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0c0c0e;
+  background: var(--gold);
+  padding: 6px 13px;
+  border-radius: 6px;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+
+.pcard-btn:hover { opacity: 0.85; transform: scale(1.04); }
+
+.pcard-btn--live {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.35);
+}
+
+.pcard-btn--live:hover { background: rgba(201,168,76,0.1); }
+
+/* scroll hint hidden — all cards visible */
+.pscroll-hint { display: none; }
+.pscroll-track { display: contents; }
+
+
+/* ─────────────────────────────────────────────
+   PROJECT PREVIEW (browser-frame mockup)
+───────────────────────────────────────────── */
+
+/* preview sits flush at the top of the card */
+.project-preview {
+  position: relative;
+  width: 100%;      /* card has no side padding so no bleed needed */
+  margin: 0;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* fake browser chrome bar */
+.project-preview-bar {
+  background: #1e1e20;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* three traffic-light dots */
+.project-preview-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.project-preview-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.project-preview-dots span:nth-child(1) { background: #ff5f57; }
+.project-preview-dots span:nth-child(2) { background: #febc2e; }
+.project-preview-dots span:nth-child(3) { background: #28c840; }
+
+/* fake URL bar */
+.project-preview-url {
+  flex: 1;
+  height: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
   font-size: 0.65rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* the actual screenshot or gradient placeholder */
+.project-preview-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.project-preview-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-preview-screen img {
+  transform: scale(1.04);
+}
+
+/* gradient placeholder shown when no img yet */
+.project-preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: filter 0.4s ease;
+}
+
+.project-card:hover .project-preview-placeholder {
+  filter: brightness(1.12);
+}
+
+.project-preview-placeholder .preview-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+}
+
+.project-preview-placeholder .preview-label {
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: rgba(255,255,255,0.45);
 }
 
-.project-year {
-  font-size: 0.7rem;
-  color: var(--text-dim);
-}
-
-.project-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text);
-  line-height: 1.3;
-}
-
-.project-desc {
-  font-size: 0.83rem;
-  color: var(--text-muted);
-  line-height: 1.75;
-  font-weight: 300;
-  flex: 1;  /* pushes the links to the bottom */
-}
-
-.project-stack {
+/* hover overlay — "View Project" button */
+.project-preview-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(12,12,14,0.62);
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(3px);
 }
 
-.stack-item {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--text-dim);
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 3px 10px;
-}
+.project-card:hover .project-preview-overlay { opacity: 1; }
 
-.project-links {
-  display: flex;
-  gap: 12px;
-  padding-top: 4px;
-}
-
-.project-link {
+.preview-cta {
   font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-muted);
-  transition: color 0.2s;
+  color: #0c0c0e;
+  background: var(--gold);
+  padding: 9px 22px;
+  border-radius: 6px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
 }
 
-.project-link:hover { color: var(--gold); }
+.preview-cta:hover {
+  opacity: 0.88;
+  transform: scale(1.04);
+}
 
-/* the "Live Demo" link is gold by default */
-.project-link.live { color: var(--gold); }
+/* per-project placeholder gradient colours */
+.preview-ikora       { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); }
+.preview-spendsmart  { background: linear-gradient(135deg, #0d1f13 0%, #0a2e1a 40%, #0d3b23 100%); }
+.preview-hostel      { background: linear-gradient(135deg, #1a1200 0%, #2b1f00 40%, #3d2d00 100%); }
+.preview-moviemgr    { background: linear-gradient(135deg, #1a001a 0%, #2b0030 40%, #1a0026 100%); }
 
 
 /* ─────────────────────────────────────────────
@@ -1557,8 +1856,6 @@ footer {
 
   .projects-grid { grid-template-columns: 1fr; }
 
-}
-
 
 /* ══════════════════════════════════════
    SMALL LAPTOP / TABLET LANDSCAPE (≤ 1024px)
@@ -1702,10 +1999,17 @@ footer {
 
   .section-title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
 
-  .projects-grid {
-    grid-template-columns: 1fr;    /* one card per row on tablet */
-    gap: 16px;
+  /* ── PROJECTS bento — mobile stack ── */
+  #projects { padding: 72px var(--pad); }
+
+  .pbento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
   }
+
+  .pbento .pcard:nth-child(1),
+  .pbento .pcard:nth-child(4) { grid-row: auto; grid-column: auto; min-height: 280px; }
+  .pbento .pcard:nth-child(3) { grid-column: auto; }
 
   /* ── CERTIFICATIONS ── */
   #certifications { padding: 72px var(--pad); }
@@ -1800,10 +2104,8 @@ footer {
 
   /* ── PROJECTS ── */
   #projects { padding: 56px var(--pad); }
-
-  .project-card { padding: 20px; }
-  .project-name { font-size: 1.05rem; }
-  .project-desc { font-size: 0.8rem; }
+  .pbento { grid-template-columns: 1fr; }
+  .pbento .pcard { min-height: 240px; grid-column: auto !important; grid-row: auto !important; }
 
   /* ── CERTIFICATIONS ── */
   #certifications { padding: 56px var(--pad); }
