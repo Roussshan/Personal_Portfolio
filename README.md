@@ -33,6 +33,9 @@ No frameworks or external JavaScript libraries are required.
 
 ```text
 Personal_Portfolio/
+├── assets/
+│   ├── docs/      # Resume and certificate PDFs
+│   └── images/    # Hero image, favicon, certificate images, and background art
 ├── index.html    # Main page markup and sections
 ├── style.css     # Styling, layout, animations, responsive rules
 ├── script.js     # Loader, typing, reveal, nav, and form behavior
@@ -66,7 +69,7 @@ Update these parts to personalize the portfolio:
 - Profile text, sections, and metadata in index.html
 - Colors, fonts, spacing, and animation style in style.css
 - Typing phrases and interaction logic in script.js
-- Resume file link in the navigation section of index.html
+- Asset paths in index.html if you rename or move files inside assets/
 
 If you are adding real message delivery to the contact form, connect it to a backend API or a form service such as Formspree/EmailJS.
 
