@@ -1454,11 +1454,30 @@ nav::before {
   transform: scale(1.04);
 }
 
-/* per-project placeholder gradient colours */
-.preview-ikora       { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); }
-.preview-spendsmart  { background: linear-gradient(135deg, #0d1f13 0%, #0a2e1a 40%, #0d3b23 100%); }
-.preview-hostel      { background: linear-gradient(135deg, #1a1200 0%, #2b1f00 40%, #3d2d00 100%); }
-.preview-moviemgr    { background: linear-gradient(135deg, #1a001a 0%, #2b0030 40%, #1a0026 100%); }
+/* project images mapped to their matching cards */
+.preview-ikora {
+  background-image:
+    linear-gradient(135deg, rgba(26, 26, 46, 0.28) 0%, rgba(15, 52, 96, 0.34) 100%),
+    url('assets/images/ikora_bg.png');
+}
+
+.preview-spendsmart {
+  background-image:
+    linear-gradient(135deg, rgba(13, 31, 19, 0.28) 0%, rgba(13, 59, 35, 0.34) 100%),
+    url('assets/images/spend%20smart_bg.png');
+}
+
+.preview-hostel {
+  background-image:
+    linear-gradient(135deg, rgba(26, 18, 0, 0.28) 0%, rgba(61, 45, 0, 0.34) 100%),
+    url('assets/images/hostel%20database_bg.png');
+}
+
+.preview-moviemgr {
+  background-image:
+    linear-gradient(135deg, rgba(26, 0, 26, 0.28) 0%, rgba(26, 0, 38, 0.34) 100%),
+    url('assets/images/movie-bg.png');
+}
 
 
 /* ─────────────────────────────────────────────
@@ -1855,6 +1874,7 @@ footer {
   :root { --pad: 48px; }
 
   .projects-grid { grid-template-columns: 1fr; }
+}
 
 
 /* ══════════════════════════════════════
