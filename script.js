@@ -135,34 +135,61 @@ skillBars.forEach(function (bar) {
 
 
 /* ─────────────────────────────────────────────
-   3c. CARD POP-IN + MOUSE GLOW
-   Handles ALL card types:
-     - project-card, cert-card  → .card-visible
-     - edu-card-new             → .edu-visible
-   Also tracks the mouse inside each card to
-   move a soft radial glow with the cursor.
+   3c. PROJECT CARDS — bento grid
+   Pop-in on scroll, cursor glow + 3D tilt on hover.
 ───────────────────────────────────────────── */
 
-/* --- Pop-in on scroll --- */
-var allCards = document.querySelectorAll('.project-card, .cert-card');
+/* ── Pop-in on scroll ── */
+var allCards = document.querySelectorAll('.pcard, .cert-card');
 
 var cardObserver = new IntersectionObserver(function (entries) {
   entries.forEach(function (entry) {
     if (entry.isIntersecting) {
       var card  = entry.target;
       var index = Array.from(allCards).indexOf(card);
-      /* stagger: each card 80 ms after the previous */
       setTimeout(function () {
         card.classList.add('card-visible');
-      }, index * 80);
+      }, index * 90);
       cardObserver.unobserve(card);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
 allCards.forEach(function (card) { cardObserver.observe(card); });
 
-/* --- Edu card pop-in (keeps its own stagger delays in CSS) --- */
+/* ── Mouse glow + 3D tilt on all pcards ── */
+document.querySelectorAll('.pcard').forEach(function (card) {
+  var glow = card.querySelector('.pcard-glow');
+
+  card.addEventListener('mousemove', function (e) {
+    var rect = card.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    var cx = rect.width  / 2;
+    var cy = rect.height / 2;
+
+    /* glow follows cursor */
+    var px = (x / rect.width  * 100).toFixed(1) + '%';
+    var py = (y / rect.height * 100).toFixed(1) + '%';
+    card.style.setProperty('--mx', px);
+    card.style.setProperty('--my', py);
+
+    /* subtle 3D tilt — max ±8deg */
+    var tiltX = ((y - cy) / cy * -8).toFixed(2);
+    var tiltY = ((x - cx) / cx *  8).toFixed(2);
+    card.style.transform =
+      'scale(1.01) perspective(900px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
+  });
+
+  card.addEventListener('mouseleave', function () {
+    card.style.transform = '';
+  });
+});
+
+
+/* ─────────────────────────────────────────────
+   3d. EDU CARD POP-IN + SCORE BARS
+───────────────────────────────────────────── */
 var eduCards = document.querySelectorAll('.edu-card-new');
 
 var eduObserver = new IntersectionObserver(function (entries) {
@@ -176,31 +203,23 @@ var eduObserver = new IntersectionObserver(function (entries) {
 
 eduCards.forEach(function (card) { eduObserver.observe(card); });
 
-/* --- Mouse-tracking glow for ALL card types --- */
-var glowCards = document.querySelectorAll(
-  '.project-card, .cert-card, .edu-card-new'
-);
-
-glowCards.forEach(function (card) {
+/* mouse-glow on edu + cert cards */
+document.querySelectorAll('.edu-card-new, .cert-card').forEach(function (card) {
   card.addEventListener('mousemove', function (e) {
     var rect = card.getBoundingClientRect();
-    var x = ((e.clientX - rect.left) / rect.width)  * 100;
-    var y = ((e.clientY - rect.top)  / rect.height) * 100;
-    card.style.setProperty('--mx', x + '%');
-    card.style.setProperty('--my', y + '%');
+    card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width  * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - rect.top)  / rect.height * 100) + '%');
   });
 });
 
-/* --- Score bars animate when edu card becomes visible --- */
+/* score bar animation */
 var scoreBarObserver = new IntersectionObserver(function (entries) {
   entries.forEach(function (entry) {
     if (entry.isIntersecting) {
       var fill = entry.target;
       var targetWidth = fill.getAttribute('data-score');
       if (targetWidth) {
-        setTimeout(function () {
-          fill.style.width = targetWidth + '%';
-        }, 350);
+        setTimeout(function () { fill.style.width = targetWidth + '%'; }, 350);
       }
       scoreBarObserver.unobserve(fill);
     }
