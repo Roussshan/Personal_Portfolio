@@ -6,12 +6,6 @@ It is designed to present profile details, education, projects, certifications, 
 
 ---
 
-## Live Demo
-
-Add your deployed link here:
-
-* https://your-portfolio-url.com
-
 ---
 
 ## Features
