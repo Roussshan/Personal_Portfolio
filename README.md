@@ -5,7 +5,7 @@ A responsive personal portfolio website built with **HTML, CSS, and vanilla Java
 It is designed to present profile details, education, projects, certifications, and contact information in a clean, single-page layout.
 
 ---
-**Live Demo:** [Rousshan.vercel.app](https://roussshan.vercel.app/) 
+**Live Demo:** [Roushan.vercel.app](https://roussshan.vercel.app/) 
 ---
 
 ## Features
