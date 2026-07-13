@@ -83,13 +83,7 @@ If you are adding real message delivery to the contact form, connect it to a bac
 
 ## Deployment
 
-You can deploy this static site on:
-
-* GitHub Pages
-* Netlify
 * Vercel
-
-After deployment, replace the Live Demo URL in this README.
 
 ---
 
