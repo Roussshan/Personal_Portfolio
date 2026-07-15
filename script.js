@@ -352,6 +352,24 @@ document.addEventListener('click', function (e) {
 
 
 /* ─────────────────────────────────────────────
+   5b. FLOATING BACK-TO-TOP
+   Shows after scrolling 300px, hides at top.
+───────────────────────────────────────────── */
+(function () {
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+})();
+
+
+/* ─────────────────────────────────────────────
    6. CONTACT FORM — WhatsApp (wa.me)
    Builds a pre-filled WhatsApp message from
    the form fields and opens it in a new tab.
